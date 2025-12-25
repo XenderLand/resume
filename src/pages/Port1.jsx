@@ -15,6 +15,7 @@ import {
   FiShield,
   FiCheckCircle,
   FiUserPlus,
+  FiArrowRight,
 } from "react-icons/fi";
 import {
   FaReact,
@@ -37,6 +38,9 @@ import {
   SiJavascript,
   SiMongodb,
 } from "react-icons/si";
+
+import profile from "../assets/images/076eefc3-1aa0-473a-ad12-1f62d05f5cf4.jpg";
+import HMS from "../assets/images/Screenshot 2025-01-19 at 20-02-10 HMS.png";
 
 function Port1() {
   return (
@@ -292,7 +296,9 @@ function Hero() {
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-xl opacity-30"></div>
                   <div className="relative w-full h-full rounded-full border-4 border-gray-800 overflow-hidden">
                     <div className="w-full h-full bg-gradient-to-br from-blue-900/30 to-purple-900/30 flex items-center justify-center">
-                      <div className="text-6xl">👨‍💻</div>
+                      <img src={profile} alt="profile" className="w-auto " />
+
+                      {/* <div className="text-6xl">👨‍💻</div> */}
                     </div>
                   </div>
                   {/* Status indicator */}
@@ -469,41 +475,80 @@ function TechStack() {
 function Projects() {
   const projects = [
     {
-      title: "Enterprise SaaS Platform",
+      title: "GardenMart E-Commerce Platform",
       description:
-        "Full-stack SaaS solution with multi-tenancy, real-time analytics, and microservices architecture.",
+        "Modern Full-stack e-commerce platform with user authentication, product management, and payment integration.",
       technologies: [
-        "Next.js 14",
-        "TypeScript",
-        "NestJS",
-        "PostgreSQL",
-        "Redis",
-        "Docker",
+        "React",
+        "JavaScript",
+        "Tailwind CSS",
+        "Firebase",
+        "PayStack",
+        "Node.js",
       ],
-      category: "Enterprise",
-      liveUrl: "#",
-      githubUrl: "#",
+      category: "E-Commerce",
+      liveUrl: "https://gardenmart.netlify.app/",
+      githubUrl: "https://github.com/XenderLand/gardenMart",
       gradient: "from-blue-600 to-cyan-500",
+      image: HMS,
     },
     {
-      title: "E-commerce Microservices",
+      title: "Home Care Management System",
       description:
-        "Scalable e-commerce platform with payment processing, inventory management, and recommendation engine.",
-      technologies: ["React", "Node.js", "MongoDB", "RabbitMQ", "Kubernetes"],
-      category: "E-commerce",
-      liveUrl: "#",
-      githubUrl: "#",
+        "Comprehensive platform for managing home care services, scheduling, and client communication.",
+      technologies: [
+        "React",
+        "Tailwind CSS",
+        "Node.js",
+        "Firebase",
+        "MongoDB",
+        "PayStack",
+      ],
+      category: "Healthcare",
+      liveUrl: "https://homecaremgt.netlify.app/",
+      githubUrl: "https://github.com/XenderLand/HMS-Frontend",
       gradient: "from-purple-600 to-pink-500",
+      image: HMS,
     },
     {
-      title: "AI Analytics Dashboard",
+      title: "Eventify - Ticket selling Platform",
       description:
-        "Real-time data visualization platform with machine learning predictions and interactive dashboards.",
-      technologies: ["Python", "FastAPI", "React", "TensorFlow", "AWS"],
-      category: "AI/ML",
-      liveUrl: "#",
-      githubUrl: "#",
+        "A dynamic event ticketing platform enabling users to browse, purchase, and manage event tickets seamlessly.",
+      technologies: [
+        "Python",
+        "Django",
+        "HTML",
+        "Tailwind CSS",
+        "ProgreSQL",
+        "PayStack",
+      ],
+      category: "Event Management",
+      liveUrl: "https://eventifypro.onrender.com",
+      githubUrl: "https://github.com/XenderLand/eventifyPro",
       gradient: "from-green-600 to-emerald-500",
+      image: HMS,
+    },
+    {
+      title: "DarkEntity - Movies and Series Platform",
+      description:
+        "A respontive platform where all latest movies & series can be downloaded for free. ",
+      technologies: ["Vite", "JavaScript", "Node.js", "MongoDB"],
+      category: "Entertainment",
+      liveUrl: "https://eventifypro.onrender.com",
+      githubUrl: "https://github.com/XenderLand/eventifyPro",
+      gradient: "from-green-600 to-emerald-500",
+      image: HMS,
+    },
+    {
+      title: "DziDzi - E-Commerce Platform",
+      description:
+        "An e-commerce platform for food and beverages , resturant management, and payment integration.",
+      technologies: ["PHP", "JavaScript", "HTML/CSS", "MySQL", "PayStack"],
+      category: " E-Commerce",
+      liveUrl: "https://eventifypro.onrender.com",
+      githubUrl: "https://github.com/XenderLand/eventifyPro",
+      gradient: "from-green-600 to-emerald-500",
+      image: HMS,
     },
   ];
 
@@ -528,17 +573,30 @@ function Projects() {
               Innovative solutions for complex challenges
             </p>
           </div>
-          <motion.button
+          {/* <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() =>
               window.open(
-                "https://github.com/username?tab=repositories",
+                "https://github.com/XenderLand?tab=repositories",
                 "_blank"
               )
             }
             className="px-6 py-3 border border-gray-700 rounded-lg font-semibold hover:border-blue-500 hover:text-blue-400 transition-all duration-300">
+            View All
+          </motion.button> */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              window.open(
+                "https://github.com/XenderLand?tab=repositories",
+                "_blank"
+              );
+            }}
+            className="px-6 py-3 border border-gray-700 rounded-lg font-semibold flex items-center gap-2 hover:border-blue-500 transition-colors duration-300">
             View All Projects
+            <FiArrowRight className="w-4 h-4" />
           </motion.button>
         </motion.div>
 
@@ -555,8 +613,11 @@ function Projects() {
               <div className="h-full bg-gradient-to-b from-gray-900/50 to-gray-900/20 rounded-2xl overflow-hidden border border-gray-800 hover:border-blue-500/30 transition-all duration-300">
                 {/* Project Header */}
                 <div className="relative h-48 overflow-hidden">
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-r ${project.gradient}`}></div>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="rounded mb-4"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full text-sm">
