@@ -44,7 +44,7 @@ body {
   width: 10px;
 }
 
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
   background: #1a1a1a;
 }
 
@@ -55,8 +55,38 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, #2563eb, #7c3aed);
+} */
+
+
+
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
 }
 
+::-webkit-scrollbar-track {
+  @apply bg-gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-blue-500 to-purple-600 rounded;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gradient-to-b from-blue-600 to-purple-700;
+}
+
+/* Selection color */
+::selection {
+  @apply bg-blue-500/30 text-white;
+}
+
+/* Selection color */
+::selection {
+  @apply bg-blue-500/30 text-white;
+}
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;

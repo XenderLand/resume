@@ -41,6 +41,30 @@ import {
 
 import profile from "../assets/images/076eefc3-1aa0-473a-ad12-1f62d05f5cf4.jpg";
 import HMS from "../assets/images/Screenshot 2025-01-19 at 20-02-10 HMS.png";
+import XenderMall from "../assets/images/XenderMall Online Shop.png";
+import Eventify from "../assets/images/Eventify - Events.png";
+import HMS_UI from "../assets/images/Home 11.jpg";
+import AdsNet from "../assets/images/Picture1 Ads.png";
+import DarkEntity from "../assets/images/Screenshot 2025-12-26 at 12-05-42 DarkEntity.png";
+import uniHub from "../assets/images/Screenshot 2025-08-02 192256.png";
+import resumePDF from "../assets/Jamal Siraj Resume.pdf"
+
+  const handleDownload = () => {
+    // Create blob URL for the imported file
+    fetch(resumePDF)
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Jamal_Siraj_Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+      })
+      .catch(error => console.error('Download failed:', error));
+  };
 
 function Port1() {
   return (
@@ -232,15 +256,7 @@ function Hero() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  // Simulate download CV
-                  const link = document.createElement("a");
-                  link.href = "/resume.pdf";
-                  link.download = "Jamal_Siraj_Resume.pdf";
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                }}
+                onClick={handleDownload}
                 className="px-6 py-3 border border-gray-700 rounded-lg font-semibold flex items-center gap-2 hover:border-blue-500 transition-colors duration-300">
                 <FiDownload className="w-4 h-4" />
                 Download CV
@@ -251,7 +267,7 @@ function Hero() {
             <div className="grid grid-cols-3 gap-4">
               {[
                 {
-                  value: "2+",
+                  value: "3+",
                   label: "Years Experience",
                   color: "from-blue-500 to-cyan-500",
                 },
@@ -364,6 +380,7 @@ function TechStack() {
         { name: "TypeScript", icon: <SiTypescript />, level: 85 },
         { name: "Next.js", icon: <SiNextdotjs />, level: 85 },
         { name: "Tailwind CSS", icon: <SiTailwindcss />, level: 95 },
+        { name: "Figma", icon: <FaFigma />, level: 95 },
       ],
     },
     {
@@ -373,6 +390,7 @@ function TechStack() {
         { name: "Node.js", icon: <FaNodeJs />, level: 90 },
         { name: "Python", icon: <FaPython />, level: 85 },
         { name: "Java", icon: <FaJava />, level: 80 },
+        { name: "Firebase", icon: <SiFirebase />, level: 85 },
         { name: "GraphQL", icon: <SiGraphql />, level: 75 },
         { name: "MongoDB", icon: <SiMongodb />, level: 85 },
       ],
@@ -475,7 +493,7 @@ function TechStack() {
 function Projects() {
   const projects = [
     {
-      title: "GardenMart E-Commerce Platform",
+      title: "XenderMall E-Commerce Platform",
       description:
         "Modern Full-stack e-commerce platform with user authentication, product management, and payment integration.",
       technologies: [
@@ -487,10 +505,10 @@ function Projects() {
         "Node.js",
       ],
       category: "E-Commerce",
-      liveUrl: "https://gardenmart.netlify.app/",
-      githubUrl: "https://github.com/XenderLand/gardenMart",
-      gradient: "from-blue-600 to-cyan-500",
-      image: HMS,
+      liveUrl: "https://xendermall.netlify.app/",
+      githubUrl: "https://github.com/XenderLand/XenderMall",
+      // gradient: "from-blue-600 to-cyan-500",
+      image: XenderMall,
     },
     {
       title: "Home Care Management System",
@@ -507,8 +525,19 @@ function Projects() {
       category: "Healthcare",
       liveUrl: "https://homecaremgt.netlify.app/",
       githubUrl: "https://github.com/XenderLand/HMS-Frontend",
-      gradient: "from-purple-600 to-pink-500",
       image: HMS,
+    },
+      {
+      title: "UI/UX for Home Care Management System",
+      description:
+        "UI/UX for the Home Care Management System using Figma Front-end designer tool .",
+      technologies: [
+        "Figma", "Adobe PhotoShop",
+      ],
+      category: "Healthcare",
+      liveUrl: "https://homecaremgt.netlify.app/",
+      githubUrl: "https://github.com/XenderLand/HMS-Frontend",
+      image: HMS_UI,
     },
     {
       title: "Eventify - Ticket selling Platform",
@@ -525,30 +554,54 @@ function Projects() {
       category: "Event Management",
       liveUrl: "https://eventifypro.onrender.com",
       githubUrl: "https://github.com/XenderLand/eventifyPro",
-      gradient: "from-green-600 to-emerald-500",
-      image: HMS,
+      image: Eventify,
     },
     {
       title: "DarkEntity - Movies and Series Platform",
       description:
-        "A respontive platform where all latest movies & series can be downloaded for free. ",
-      technologies: ["Vite", "JavaScript", "Node.js", "MongoDB"],
+        "A respontive MERN platform where all latest movies & series can be downloaded for free. ",
+      technologies: ["React", "JavaScript", "Node.js", "Express.js", "MongoDB", "Tailwind CSS "],
       category: "Entertainment",
-      liveUrl: "https://eventifypro.onrender.com",
-      githubUrl: "https://github.com/XenderLand/eventifyPro",
-      gradient: "from-green-600 to-emerald-500",
-      image: HMS,
+      liveUrl: "https://darkentity.netlify.app/",
+      githubUrl: "https://github.com/XenderLand/DarkEntity-FrontEnd",
+      image: DarkEntity,
     },
     {
+      title: "AdzNet Advertisement Platform",
+      description:
+        "An e-commerce platform for food and beverages , resturant management, and payment integration.",
+ technologies: [
+        "React",
+        "JavaScript",
+        "Tailwind CSS",
+        "Firebase",
+        "PayStack",
+        "Node.js",
+      ],
+      category: "Advertisement",
+      liveUrl: "#",
+      githubUrl: "https://github.com/XenderLand/eventifyPro",
+      image: AdsNet,
+    },
+     {
+      title: "uniHub - Social Media App UI/UX ",
+      description:" Mobile application for university where student can communicate, share media and learn",
+
+      technologies: ["Figma", "Adobe PhotoShop"],
+      category: " Social Media",
+      liveUrl: "#",
+      githubUrl: "https://github.com/XenderLand/eventifyPro",
+      image: uniHub,
+    },
+         {
       title: "DziDzi - E-Commerce Platform",
       description:
         "An e-commerce platform for food and beverages , resturant management, and payment integration.",
       technologies: ["PHP", "JavaScript", "HTML/CSS", "MySQL", "PayStack"],
       category: " E-Commerce",
-      liveUrl: "https://eventifypro.onrender.com",
+      liveUrl: "#",
       githubUrl: "https://github.com/XenderLand/eventifyPro",
-      gradient: "from-green-600 to-emerald-500",
-      image: HMS,
+      gradient: "from-purple-600 to-pink-500",
     },
   ];
 
@@ -613,12 +666,21 @@ function Projects() {
               <div className="h-full bg-gradient-to-b from-gray-900/50 to-gray-900/20 rounded-2xl overflow-hidden border border-gray-800 hover:border-blue-500/30 transition-all duration-300">
                 {/* Project Header */}
                 <div className="relative h-48 overflow-hidden">
-                  <img
+                  {project.image && (
+  <img
                     src={project.image}
                     alt={project.title}
                     className="rounded mb-4"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    )}
+
+                {project.gradient && (
+                  <div className={`absolute inset-0 bg-gradient-to-r ${project.gradient}`}></div>
+                )}
+                    
+ 
+                  
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full text-sm">
                       {project.category}
@@ -668,13 +730,14 @@ function Projects() {
                         <FiGithub className="w-4 h-4" />
                       </motion.a>
                     </div>
-                    <motion.button
+                    <motion.a
                       whileHover={{ x: 5 }}
-                      onClick={() =>
-                        alert(`Case study for ${project.title} coming soon!`)
-                      }
+                      href={project.liveUrl}
+                        target="_blank"
+                                                rel="noopener noreferrer"
+
                       className="flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold bg-transparent border-none">
-                      Case Study
+                      Live demo
                       <svg
                         className="w-4 h-4"
                         fill="none"
@@ -687,7 +750,7 @@ function Projects() {
                           d="M14 5l7 7m0 0l-7 7m7-7H3"
                         />
                       </svg>
-                    </motion.button>
+                    </motion.a>
                   </div>
                 </div>
               </div>
@@ -704,27 +767,27 @@ function Experience() {
   const experiences = [
     {
       role: "Full Stack Engineer",
-      company: "TechCorp Inc.",
-      period: "2021 - Present",
+      company: "Independent / Freelance",
+      period: "2025 - Present",
       description:
-        "Led development of enterprise SaaS platform, improved performance by 40%, mentored 5 junior developers.",
-      technologies: ["React", "Node.js", "AWS", "Kubernetes"],
+        "Designed and developed full-stack web and mobile applications using React, React Native, Node.js, Express, MongoDB, Firebase, and Django.",
+      technologies: ["Figma","React", "React Native(Expo)", "Node.js", "AWS", "Firebase", "Django", "MongoDB","PostgreSQL", "Tailwind CSS" ],
     },
     {
       role: "Full Stack Developer",
-      company: "Digital Solutions LLC",
-      period: "2019 - 2021",
+      company: "Logic Kids",
+      period: "2024 - 2025",
       description:
         "Built scalable web applications for clients, reduced deployment time by 60% with CI/CD pipelines.",
-      technologies: ["Vue.js", "Python", "Docker", "PostgreSQL"],
+      technologies: ["Vue.js", "React", "Figma", "Spring Boot","Django", "Python", "Docker", "MySQL", "MongoDB", "PostgreSQL"],
     },
     {
       role: "Frontend Developer",
-      company: "WebWorks Agency",
-      period: "2017 - 2019",
+      company: "Logic Kids",
+      period: "2023 - 2024",
       description:
-        "Created responsive interfaces for 20+ client projects, improved user engagement by 35%.",
-      technologies: ["React", "JavaScript", "CSS3", "WordPress"],
+        "Created responsive interfaces for 5+ client projects using my experience in UI/UX (Figma), improved user engagement by 35%.",
+      technologies: ["React", "Figma", "JavaScript", "CSS3", "Tailwind CSS", "Firebase", "WordPress"],
     },
   ];
 
@@ -824,6 +887,11 @@ function Skills() {
       name: "DevOps & CI/CD",
       icon: <FiCloud />,
       description: "Docker, Kubernetes, AWS, GitLab",
+    },
+     {
+      name: "IT Support",
+      icon: <FiTool />,
+      description: "Troubleshooting, Networking, Installation",
     },
     {
       name: "Team Leadership",
