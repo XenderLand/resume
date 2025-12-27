@@ -1,5 +1,6 @@
 // src/App.jsx
 import React from "react";
+import Typewriter from "typewriter-effect";
 import { motion } from "framer-motion";
 import {
   FiGithub,
@@ -47,24 +48,26 @@ import HMS_UI from "../assets/images/Home 11.jpg";
 import AdsNet from "../assets/images/Picture1 Ads.png";
 import DarkEntity from "../assets/images/Screenshot 2025-12-26 at 12-05-42 DarkEntity.png";
 import uniHub from "../assets/images/Screenshot 2025-08-02 192256.png";
-import resumePDF from "../assets/Jamal Siraj Resume.pdf"
+import uniVerse from "../assets/images/photo_3_2025-08-02_20-07-41.jpg";
+import myLogo from "../assets/images/ChatGPT Image Aug 31, 2025, 03_14_16 PM.png";
+import resumePDF from "../assets/Jamal Siraj Resume.pdf";
 
-  const handleDownload = () => {
-    // Create blob URL for the imported file
-    fetch(resumePDF)
-      .then(response => response.blob())
-      .then(blob => {
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'Jamal_Siraj_Resume.pdf';
-        document.body.appendChild(link);
-        link.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(link);
-      })
-      .catch(error => console.error('Download failed:', error));
-  };
+const handleDownload = () => {
+  // Create blob URL for the imported file
+  fetch(resumePDF)
+    .then((response) => response.blob())
+    .then((blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Jamal_Siraj_Resume.pdf";
+      document.body.appendChild(link);
+      link.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+    })
+    .catch((error) => console.error("Download failed:", error));
+};
 
 function Port1() {
   return (
@@ -95,6 +98,28 @@ function Port1() {
   );
 }
 
+// Create a custom LazyImage component
+const LazyImage = ({ src, alt, className }) => {
+  const [loaded, setLoaded] = React.useState(false);
+
+  return (
+    <div className={`relative ${className}`}>
+      {!loaded && (
+        <div className="absolute inset-0 bg-gray-800 animate-pulse rounded-lg"></div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        className={`transition-opacity duration-300 ${
+          loaded ? "opacity-100" : "opacity-0"
+        } ${className}`}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
+  );
+};
+
 // Navbar Component
 function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -106,14 +131,6 @@ function Navbar() {
       setIsOpen(false);
     }
   };
-  //   const navItems = [
-  //     { label: "Home", href: "#home" },
-  //     { label: "Tech Stack", href: "#tech" },
-  //     { label: "Projects", href: "#projects" },
-  //     { label: "Experience", href: "#experience" },
-  //     { label: "Skills", href: "#skills" },
-  //     { label: "Contact", href: "#contact" },
-  //   ];
 
   return (
     <motion.nav
@@ -126,9 +143,9 @@ function Navbar() {
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <FiCode className="w-4 h-4" />
-            </div>
+            {/* <FiCode className="w-4 h-4" /> */}
+            <img src={myLogo} alt="logo" className=" h-14 w-auto " />
+
             <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               Jamal Siraj
             </span>
@@ -185,22 +202,30 @@ function Navbar() {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden pb-4 space-y-2">
-            {[
-              { label: "Home", id: "home" },
-              { label: "Tech Stack", id: "tech" },
-              { label: "Projects", id: "projects" },
-              { label: "Experience", id: "experience" },
-              { label: "Skills", id: "skills" },
-              { label: "Contact", id: "contact" },
-            ].map((item) => (
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden absolute top-16 left-0 right-0 bg-gray-900/95 backdrop-blur-xl border-b border-gray-800/50">
+            <div className="px-4 py-6 space-y-4">
+              {[
+                { label: "Home", id: "home" },
+                { label: "Tech Stack", id: "tech" },
+                { label: "Projects", id: "projects" },
+                { label: "Experience", id: "experience" },
+                { label: "Skills", id: "skills" },
+                { label: "Contact", id: "contact" },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="block w-full text-left py-3 px-4 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors duration-300 bg-transparent border-none">
+                  {item.label}
+                </button>
+              ))}
               <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="block w-full text-left py-2 text-gray-300 hover:text-white transition-colors duration-300 bg-transparent border-none">
-                {item.label}
+                onClick={() => scrollToSection("contact")}
+                className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold text-white mt-4">
+                Get in Touch
               </button>
-            ))}
+            </div>
           </motion.div>
         )}
       </div>
@@ -227,10 +252,28 @@ function Hero() {
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Building the
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
-                Future with Code
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              Hello, I'm <span className="text-blue-400">Jamal</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 h-20 md:h-24 lg:h-28">
+                <Typewriter
+                  options={{
+                    strings: [
+                      "Full Stack Engineer",
+                      "Web Developer",
+                      "IT Specialist",
+                      "UI/UX Designer",
+                      "Problem Solver",
+                      "Tech Enthusiast",
+                    ],
+                    autoStart: true,
+                    loop: true,
+                    delay: 60,
+                    deleteSpeed: 40,
+                    cursor: "_",
+                    wrapperClassName: "typewriter-text",
+                    cursorClassName: "typewriter-cursor",
+                  }}
+                />
               </span>
             </h1>
 
@@ -272,7 +315,7 @@ function Hero() {
                   color: "from-blue-500 to-cyan-500",
                 },
                 {
-                  value: "5+",
+                  value: "15+",
                   label: "Projects Delivered",
                   color: "from-purple-500 to-pink-500",
                 },
@@ -312,9 +355,11 @@ function Hero() {
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-xl opacity-30"></div>
                   <div className="relative w-full h-full rounded-full border-4 border-gray-800 overflow-hidden">
                     <div className="w-full h-full bg-gradient-to-br from-blue-900/30 to-purple-900/30 flex items-center justify-center">
-                      <img src={profile} alt="profile" className="w-auto " />
-
-                      {/* <div className="text-6xl">👨‍💻</div> */}
+                      <LazyImage
+                        src={profile}
+                        alt="Jamal Siraj"
+                        className="w-full h-full object-cover rounded-full"
+                      />
                     </div>
                   </div>
                   {/* Status indicator */}
@@ -506,7 +551,7 @@ function Projects() {
       ],
       category: "E-Commerce",
       liveUrl: "https://xendermall.netlify.app/",
-      githubUrl: "https://github.com/XenderLand/XenderMall",
+      githubUrl: "https://github.com/XenderLand/gardenMart",
       // gradient: "from-blue-600 to-cyan-500",
       image: XenderMall,
     },
@@ -527,13 +572,11 @@ function Projects() {
       githubUrl: "https://github.com/XenderLand/HMS-Frontend",
       image: HMS,
     },
-      {
+    {
       title: "UI/UX for Home Care Management System",
       description:
         "UI/UX for the Home Care Management System using Figma Front-end designer tool .",
-      technologies: [
-        "Figma", "Adobe PhotoShop",
-      ],
+      technologies: ["Figma", "Adobe PhotoShop"],
       category: "Healthcare",
       liveUrl: "https://homecaremgt.netlify.app/",
       githubUrl: "https://github.com/XenderLand/HMS-Frontend",
@@ -560,7 +603,14 @@ function Projects() {
       title: "DarkEntity - Movies and Series Platform",
       description:
         "A respontive MERN platform where all latest movies & series can be downloaded for free. ",
-      technologies: ["React", "JavaScript", "Node.js", "Express.js", "MongoDB", "Tailwind CSS "],
+      technologies: [
+        "React",
+        "JavaScript",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Tailwind CSS ",
+      ],
       category: "Entertainment",
       liveUrl: "https://darkentity.netlify.app/",
       githubUrl: "https://github.com/XenderLand/DarkEntity-FrontEnd",
@@ -570,7 +620,7 @@ function Projects() {
       title: "AdzNet Advertisement Platform",
       description:
         "An e-commerce platform for food and beverages , resturant management, and payment integration.",
- technologies: [
+      technologies: [
         "React",
         "JavaScript",
         "Tailwind CSS",
@@ -580,28 +630,64 @@ function Projects() {
       ],
       category: "Advertisement",
       liveUrl: "#",
-      githubUrl: "https://github.com/XenderLand/eventifyPro",
+      githubUrl: "https://github.com/XenderLand/ads-net-dev",
       image: AdsNet,
     },
-     {
+    {
       title: "uniHub - Social Media App UI/UX ",
-      description:" Mobile application for university where student can communicate, share media and learn",
+      description:
+        " Mobile application for university where student can communicate, share media and learn",
 
       technologies: ["Figma", "Adobe PhotoShop"],
       category: " Social Media",
       liveUrl: "#",
-      githubUrl: "https://github.com/XenderLand/eventifyPro",
+      githubUrl: "https://github.com/XenderLand/universeApp",
       image: uniHub,
     },
-         {
-      title: "DziDzi - E-Commerce Platform",
+    {
+      title: "uniVerse - Social Media App ",
+      description:
+        " Mobile application for my university where student can communicate, share media and learn",
+
+      technologies: ["React Native", "Firebase", "Expo"],
+      category: " Social Media",
+      liveUrl: "#",
+      githubUrl: "https://github.com/XenderLand/universeApp",
+      image: uniVerse,
+    },
+    {
+      title: "DziDzi - Food E-Commerce Platform",
       description:
         "An e-commerce platform for food and beverages , resturant management, and payment integration.",
-      technologies: ["PHP", "JavaScript", "HTML/CSS", "MySQL", "PayStack"],
+      technologies: [
+        "PHP",
+        "JavaScript",
+        "HTML/CSS",
+        "MySQL",
+        "Bootstrap",
+        "PayStack",
+      ],
       category: " E-Commerce",
       liveUrl: "#",
-      githubUrl: "https://github.com/XenderLand/eventifyPro",
+      githubUrl: "https://github.com/XenderLand/dzidzi",
       gradient: "from-purple-600 to-pink-500",
+    },
+    {
+      title: "PharmaZon - Medicine E-Commerce Platform",
+      description:
+        "PharmaZon is an e-commerce platform for selling medicines and health technologies , pharmacy management where pharmarcies can me found for assistance.",
+      technologies: [
+        "PHP",
+        "HTML/CSS",
+        "JavaScript",
+        "Bootstrap",
+        "MySQL",
+        "PayStack",
+      ],
+      category: "Healthcare",
+      liveUrl: "#",
+      githubUrl: "https://github.com/XenderLand/PharmaZon",
+      gradient: "from-green-500 to-emerald-500",
     },
   ];
 
@@ -626,18 +712,7 @@ function Projects() {
               Innovative solutions for complex challenges
             </p>
           </div>
-          {/* <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() =>
-              window.open(
-                "https://github.com/XenderLand?tab=repositories",
-                "_blank"
-              )
-            }
-            className="px-6 py-3 border border-gray-700 rounded-lg font-semibold hover:border-blue-500 hover:text-blue-400 transition-all duration-300">
-            View All
-          </motion.button> */}
+
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -666,28 +741,30 @@ function Projects() {
               <div className="h-full bg-gradient-to-b from-gray-900/50 to-gray-900/20 rounded-2xl overflow-hidden border border-gray-800 hover:border-blue-500/30 transition-all duration-300">
                 {/* Project Header */}
                 <div className="relative h-48 overflow-hidden">
-                  {project.image && (
-  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="rounded mb-4"
-                  />
-                    )}
-
-                {project.gradient && (
-                  <div className={`absolute inset-0 bg-gradient-to-r ${project.gradient}`}></div>
-                )}
-                    
- 
-                  
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                  {project.image ? (
+                    <>
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                    </>
+                  ) : project.gradient ? (
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-r ${project.gradient}`}></div>
+                  ) : null}
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full text-sm">
+                    <span className="px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full text-sm font-medium">
+                      {" "}
                       {project.category}
                     </span>
                   </div>
-                  <div className="absolute bottom-4 left-4">
-                    <h3 className="text-2xl font-bold">{project.title}</h3>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-xl font-bold drop-shadow-lg">
+                      {project.title}
+                    </h3>
                   </div>
                 </div>
 
@@ -733,9 +810,8 @@ function Projects() {
                     <motion.a
                       whileHover={{ x: 5 }}
                       href={project.liveUrl}
-                        target="_blank"
-                                                rel="noopener noreferrer"
-
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold bg-transparent border-none">
                       Live demo
                       <svg
@@ -771,7 +847,18 @@ function Experience() {
       period: "2025 - Present",
       description:
         "Designed and developed full-stack web and mobile applications using React, React Native, Node.js, Express, MongoDB, Firebase, and Django.",
-      technologies: ["Figma","React", "React Native(Expo)", "Node.js", "AWS", "Firebase", "Django", "MongoDB","PostgreSQL", "Tailwind CSS" ],
+      technologies: [
+        "Figma",
+        "React",
+        "React Native(Expo)",
+        "Node.js",
+        "AWS",
+        "Firebase",
+        "Django",
+        "MongoDB",
+        "PostgreSQL",
+        "Tailwind CSS",
+      ],
     },
     {
       role: "Full Stack Developer",
@@ -779,7 +866,18 @@ function Experience() {
       period: "2024 - 2025",
       description:
         "Built scalable web applications for clients, reduced deployment time by 60% with CI/CD pipelines.",
-      technologies: ["Vue.js", "React", "Figma", "Spring Boot","Django", "Python", "Docker", "MySQL", "MongoDB", "PostgreSQL"],
+      technologies: [
+        "Vue.js",
+        "React",
+        "Figma",
+        "Spring Boot",
+        "Django",
+        "Python",
+        "Docker",
+        "MySQL",
+        "MongoDB",
+        "PostgreSQL",
+      ],
     },
     {
       role: "Frontend Developer",
@@ -787,7 +885,15 @@ function Experience() {
       period: "2023 - 2024",
       description:
         "Created responsive interfaces for 5+ client projects using my experience in UI/UX (Figma), improved user engagement by 35%.",
-      technologies: ["React", "Figma", "JavaScript", "CSS3", "Tailwind CSS", "Firebase", "WordPress"],
+      technologies: [
+        "React",
+        "Figma",
+        "JavaScript",
+        "CSS3",
+        "Tailwind CSS",
+        "Firebase",
+        "WordPress",
+      ],
     },
   ];
 
@@ -888,7 +994,7 @@ function Skills() {
       icon: <FiCloud />,
       description: "Docker, Kubernetes, AWS, GitLab",
     },
-     {
+    {
       name: "IT Support",
       icon: <FiTool />,
       description: "Troubleshooting, Networking, Installation",
@@ -966,25 +1072,59 @@ function Skills() {
   );
 }
 
-// Contact Section
 function Contact() {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [submitStatus, setSubmitStatus] = React.useState(null);
   const [formData, setFormData] = React.useState({
     name: "",
     email: "",
     message: "",
   });
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Using FormSubmit.co (free service)
+      const response = await fetch(
+        "https://formsubmit.co/ajax/sirajjamal005@gmail.com",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            _subject: "New Portfolio Contact Form Submission",
+            _captcha: "false",
+          }),
+        }
+      );
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setSubmitStatus(null), 3000);
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus(null), 3000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
   };
 
   return (
@@ -1029,13 +1169,13 @@ function Contact() {
                     icon: <FiGithub />,
                     title: "GitHub",
                     value: "github.com/XenderLand",
-                    link: "https://github.com",
+                    link: "https://github.com/XenderLand",
                   },
                   {
                     icon: <FiLinkedin />,
                     title: "LinkedIn",
                     value: "www.linkedin.com/in/jamalraj5757",
-                    link: "https://linkedin.com",
+                    link: "https://www.linkedin.com/in/jamalraj5757/",
                   },
                 ].map((item) => (
                   <a
@@ -1124,8 +1264,22 @@ function Contact() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300">
-                Send Message
+                disabled={isSubmitting}
+                className={`w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 ${
+                  isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}>
+                {isSubmitting ? (
+                  <>
+                    <div className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    Sending...
+                  </>
+                ) : submitStatus === "success" ? (
+                  "Message Sent! ✓"
+                ) : submitStatus === "error" ? (
+                  "Error - Try Again"
+                ) : (
+                  "Send Message"
+                )}
               </motion.button>
             </div>
           </motion.form>
@@ -1154,7 +1308,7 @@ function Footer() {
 
           <div className="flex gap-6">
             <a
-              href="https://github.com"
+              href="https://github.com/XenderLand"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors duration-300"
@@ -1162,7 +1316,7 @@ function Footer() {
               <FiGithub className="w-5 h-5" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/jamalraj5757/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors duration-300"
@@ -1170,7 +1324,7 @@ function Footer() {
               <FiLinkedin className="w-5 h-5" />
             </a>
             <a
-              href="mailto:hello@alexjohnson.dev"
+              href="mailto:sirajjamal005@gmail.com"
               className="text-gray-400 hover:text-white transition-colors duration-300"
               aria-label="Send Email">
               <FiMail className="w-5 h-5" />

@@ -57,9 +57,6 @@ body {
   background: linear-gradient(to bottom, #2563eb, #7c3aed);
 } */
 
-
-
-
 @layer base {
   body {
     @apply antialiased;
@@ -87,6 +84,29 @@ body {
 ::selection {
   @apply bg-blue-500/30 text-white;
 }
+
+/* Add to your CSS file or Tailwind setup */
+.typewriter-text {
+  display: inline-block;
+  min-height: 1.2em;
+}
+
+.typewriter-cursor {
+  color: #3b82f6; /* blue-500 */
+  font-weight: bold;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
