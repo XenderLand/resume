@@ -48,7 +48,7 @@ import HMS_UI from "../assets/images/Home 11.jpg";
 import AdsNet from "../assets/images/Picture1 Ads.png";
 import DarkEntity from "../assets/images/Screenshot 2025-12-26 at 12-05-42 DarkEntity.png";
 import uniHub from "../assets/images/Screenshot 2025-08-02 192256.png";
-import uniVerse from "../assets/images/photo_3_2025-08-02_20-07-41.jpg";
+import uniVerse from "../assets/images/ChatGPT Image Apr 13, 2025, 01_48_27 AM.png";
 import myLogo from "../assets/images/ChatGPT Image Aug 31, 2025, 03_14_16 PM.png";
 import resumePDF from "../assets/Jamal Siraj Resume.pdf";
 
@@ -73,25 +73,27 @@ function Port1() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-950 text-white overflow-hidden">
       {/* Animated background */}
-      <div className="fixed inset-0 z-0">
+      {/* In your main App component, update the background div */}
+      <div className="fixed inset-0 z-[-1]">
+        {" "}
+        {/* Change from z-0 to z-[-1] */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-purple-900/10 via-transparent to-transparent"></div>
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
-
         {/* Grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
-
         {/* Floating elements */}
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
       </div>
-
       <Navbar />
       <Hero />
       <TechStack />
       <Projects />
       <Experience />
       <Skills />
+      <Achievements />
+
       <Contact />
       <Footer />
     </div>
@@ -1072,6 +1074,58 @@ function Skills() {
   );
 }
 
+// New Achievements Component
+function Achievements() {
+  const achievements = [
+    { number: "15+", label: "Projects Completed", icon: "🚀" },
+    { number: "100%", label: "Client Satisfaction", icon: "⭐" },
+    { number: "3+", label: "Years Experience", icon: "💼" },
+    { number: "5+", label: "Technologies Mastered", icon: "⚡" },
+  ];
+
+  return (
+    <section className="py-20 px-4 bg-gradient-to-b from-gray-950/50 to-black">
+      <div className="container mx-auto max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Impact &{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+              Achievements
+            </span>
+          </h2>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            Delivering value through technology and innovation
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {achievements.map((achievement, index) => (
+            <motion.div
+              key={achievement.label}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="text-center p-6 bg-gradient-to-br from-gray-900/30 to-gray-900/10 rounded-2xl border border-gray-800/50">
+              <div className="text-4xl mb-3">{achievement.icon}</div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                {achievement.number}
+              </div>
+              <div className="text-gray-400 text-sm mt-2">
+                {achievement.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [submitStatus, setSubmitStatus] = React.useState(null);
@@ -1128,7 +1182,7 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 px-4">
+    <section id="contact" className="py-20 px-4 relative z-10">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -1153,7 +1207,7 @@ function Contact() {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-8">
+            className="space-y-8 relative z-10">
             <div className="bg-gradient-to-br from-gray-900/50 to-gray-900/20 rounded-2xl p-6 border border-gray-800">
               <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
 
@@ -1183,7 +1237,7 @@ function Contact() {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-800/30 transition-colors duration-300 no-underline">
+                    className="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-800/30 transition-colors duration-300 no-underline relative z-20">
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-500/20 flex items-center justify-center">
                       <div className="text-xl">{item.icon}</div>
                     </div>
@@ -1218,44 +1272,57 @@ function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             onSubmit={handleSubmit}
-            className="bg-gradient-to-br from-gray-900/50 to-gray-900/20 rounded-2xl p-8 border border-gray-800">
+            className="bg-gradient-to-br from-gray-900/50 to-gray-900/20 rounded-2xl p-8 border border-gray-800 relative z-10">
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium mb-2">Name</label>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium mb-2">
+                  Name
+                </label>
                 <input
+                  id="name"
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors duration-300"
+                  className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 placeholder-gray-500 relative z-20"
                   placeholder="Your name"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Email</label>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium mb-2">
+                  Email
+                </label>
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors duration-300"
+                  className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 placeholder-gray-500 relative z-20"
                   placeholder="your@email.com"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium mb-2">
                   Message
                 </label>
                 <textarea
+                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows="4"
-                  className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors duration-300 resize-none"
+                  className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 placeholder-gray-500 resize-none relative z-20"
                   placeholder="Tell me about your project..."
                   required></textarea>
               </div>
@@ -1265,8 +1332,10 @@ function Contact() {
                 whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 ${
-                  isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                className={`w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 relative z-20 ${
+                  isSubmitting
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
                 }`}>
                 {isSubmitting ? (
                   <>
